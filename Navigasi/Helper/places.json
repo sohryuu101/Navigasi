@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "name": "Apple Developer Academy",
+        "desc": "The Apple Developer Academy @ BINUS is Asia's first-ever initiative to empower Indonesia's economy by creating world-class developers for the world's most innovative and vibrant app ecosystem.",
+        "sysImage": "graduationcap.fill",
+        "coordinates": {
+            "latitude": -6.3018849,
+            "longitude": 106.6500193
+        },
+        "building": "GOP 9",
+        "imageNames": ["image1", "image2", "image3"]
+    },
+    {
+        "id": 2,
+        "name": "Bis",
+        "desc": "",
+        "sysImage": "bus.fill",
+        "coordinates": {
+            "latitude": -6.3023062,
+            "longitude": 106.6522011
+        },
+        "building": "SML",
+        "imageNames": ["image1", "image2", "image3"]
+    },
+    {
+        "id": 3,
+        "name": "Fami",
+        "desc": "",
+        "sysImage": "fork.knife",
+        "coordinates": {
+            "latitude": -6.3032293,
+            "longitude": 106.6531313
+        },
+        "building": "GOP 1",
+        "imageNames": ["image1", "image2", "image3"]
+    },
+    {
+        "id": 4,
+        "name": "Law",
+        "desc": "",
+        "sysImage": "fork.knife",
+        "coordinates": {
+            "latitude": -6.3007555,
+            "longitude": 106.6499860
+        },
+        "building": "GOP 6",
+        "imageNames": ["image1", "image2", "image3"]
+    },
+    {
+        "id": 5,
+        "name": "Tes 5",
+        "desc": "",
+        "sysImage": "fork.knife",
+        "coordinates": {
+            "latitude": -6.3007555,
+            "longitude": 106.6499860
+        },
+        "building": "GOP 5",
+        "imageNames": ["image1", "image2", "image3"]
+    },
+    {
+        "id": 6,
+        "name": "Apple Park",
+        "desc": "",
+        "sysImage": "graduationcap.fill",
+        "coordinates": {
+            "latitude": 37.3347698,
+            "longitude": -122.0087687
+        },
+        "building": "GOP 1",
+        "imageNames": ["image1", "image2", "image3"]
+    },
+]
