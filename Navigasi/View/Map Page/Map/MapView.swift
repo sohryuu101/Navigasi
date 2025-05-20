@@ -9,28 +9,60 @@ struct MapView: View {
     
     var body: some View {
         Map(position: $viewModel.position) {
+            // polyline when user is ready
+            if viewModel.isStartingPoint {
+                // outer
+                MapPolyline(coordinates: viewModel.polyline)
+                    .stroke(Color("primer"), lineWidth: 8)
+                
+                // inner
+                MapPolyline(coordinates: viewModel.polyline)
+                    .stroke(Color.blue, lineWidth: 6)
+            }
+            
             // user's location
             UserAnnotation()
             
             // annotation for every place
             ForEach(places) { place in
                 Annotation(place.name, coordinate: place.locationCoordinate) {
-                    ZStack {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color("primer"))
-                            .frame(width: 40, height: 40)
-                        Image(systemName: place.sysImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.white)
-                            .frame(width: 30, height: 30)
-                            .onTapGesture {
-                                viewModel.selectedPlace = place
-                                viewModel.isShowingDetails.toggle()
-                            }
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.5)) {
+                            viewModel.selectedPlaceID = place.id
+                        }
+                        viewModel.selectedPlace = place
+                        viewModel.zoomIntoPlace(place)
+                        viewModel.isShowingDetails = true
+                    }) {
+                        ZStack {
+                            // outer shadow for depth
+                            Circle()
+                                .fill(Color.white.opacity(0.6))
+                                .frame(width: viewModel.selectedPlaceID == place.id ? 54 : 34, height: viewModel.selectedPlaceID == place.id ? 54 : 34)
+                                .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 1)
+                                .scaleEffect(viewModel.selectedPlaceID == place.id ? 1.3 : 1.0)
+                                .rotationEffect(viewModel.selectedPlaceID == place.id ? .degrees(-15) : .degrees(0))
+                                .animation(.easeInOut(duration: 0.2), value: viewModel.selectedPlaceID)
+                            
+                            // main background with border
+                            Circle()
+                                .fill(Color("primer"))
+                                .frame(width: viewModel.selectedPlaceID == place.id ? 50 : 30, height: viewModel.selectedPlaceID == place.id ? 50 : 30)
+                                .overlay(
+                                    Circle()
+                                        .stroke(Color.white, lineWidth: 2)
+                                )
+                            
+                            // icon
+                            Image(systemName: place.sysImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.white)
+                                .frame(width: viewModel.selectedPlaceID == place.id ? 25 : 15, height: viewModel.selectedPlaceID == place.id ? 25 : 15)
+                        }
                     }
+                    .buttonStyle(PlainButtonStyle())
+                    .sensoryFeedback(.selection, trigger: viewModel.selectedPlace)
                 }
             }
         }
@@ -40,60 +72,11 @@ struct MapView: View {
         }
         // bottom sheet area
         .sheet(isPresented: $viewModel.isShowingSheet) {
-            SearchView(searchText: $viewModel.searchText)
-                // searchview modifier
-                .padding(.top, 40)
-                .padding(.horizontal, 20)
-            
-            // title
-            Text("Places")
-                // textfield modifier
-                .font(.system(size: 20, weight: .bold, design: .default))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 30)
-                .padding(.top, 20)
-            
-            // show list of places - pass the view model and appState
-            ListView(
-                viewModel: viewModel,
-                appState: appState,
-                places: viewModel.searchText.isEmpty ? places : places.filter {
-                    $0.name.lowercased().contains(viewModel.searchText.lowercased())
-                }
-            )
-                .edgesIgnoringSafeArea(.bottom)
-            // sheet modifier
-            .padding(20)
-            .presentationDetents([.fraction(0.2), .fraction(0.4), .fraction(0.99)])
-            .presentationCornerRadius(15)
-            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.4)))
-            .interactiveDismissDisabled(true)
+            MapSheetView(viewModel: viewModel, appState: appState, places: places)
         }
-        // Add this sheet to show details when a map annotation is tapped
+        // sheet to show details when a map annotation is tapped
         .sheet(isPresented: $viewModel.isShowingDetails) {
-            HStack {
-                Spacer()
-                Button {
-                    viewModel.isShowingDetails.toggle()
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.gray)
-                }
-            }
-            .padding([.top, .trailing])
-            
-            VStack(alignment: .leading) {
-                if let selectedPlace = viewModel.selectedPlace {
-                    DetailView(viewModel: viewModel, appState: appState, place: selectedPlace)
-                        .edgesIgnoringSafeArea(.bottom)
-                }
-            }
-            .presentationDetents([.fraction(0.2), .fraction(0.4), .fraction(0.99)])
-            .presentationDragIndicator(.visible)
-            .presentationCornerRadius(15)
-            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.4)))
-            .interactiveDismissDisabled(true)
+            DetailSheetView(viewModel: viewModel, appState: appState)
         }
     }
 }

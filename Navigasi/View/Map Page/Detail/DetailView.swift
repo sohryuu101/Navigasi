@@ -60,39 +60,51 @@ struct DetailView: View {
                 }
                 .frame(height: 120)
                 
-                Button(action: {
-                    viewModel.isStartingPoint = true
-                }) {
-                    Text("Select Starting Point")
+                // button to select starting point
+                
+                if place.name == "Halte BSD Link The Breeze" {
+                    Button(action: {
+                        viewModel.isStartingPoint = true
+                    }) {
+                        Text("Select Starting Point")
+                            .font(.system(size: 15, weight: .bold))
+                            .foregroundColor(Color("primer"))
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("sekunder"))
+                            .cornerRadius(10)
+                    }
+                    .sensoryFeedback(.selection, trigger: viewModel.isStartingPoint)
+                    .padding(.top, 5)
+                    
+                    // sheet that contains starting view
+                    .sheet(isPresented: $viewModel.isStartingPoint) {
+                        HStack {
+                            Spacer()
+                            Button {
+                                viewModel.isStartingPoint.toggle()
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        .padding([.top, .trailing])
+                        
+                        StartingView(appState: appState)
+                        
+                            .presentationDetents([.fraction(0.4)])
+                            .presentationDragIndicator(.visible)
+                            .presentationCornerRadius(15)
+                            .interactiveDismissDisabled(true)
+                    }
+                }
+                else {
+                    Text("No Routes Available")
                         .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(Color("primer"))
+                        .foregroundColor(.red)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color("sekunder"))
-                        .cornerRadius(10)
-                }
-                .padding(.top, 15)
-                
-                .sheet(isPresented: $viewModel.isStartingPoint) {
-                    HStack {
-                        Spacer()
-                        Button {
-                            viewModel.isStartingPoint.toggle()
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(.gray)
-                        }
-                    }
-                    .padding([.top, .trailing])
-                    
-                    StartingView(appState: appState)
-                    
-                        .presentationDetents([.fraction(0.2), .fraction(0.4), .fraction(0.99)])
-                        .presentationDragIndicator(.visible)
-                        .presentationCornerRadius(15)
-                        .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.4)))
-                        .interactiveDismissDisabled(true)
                 }
             }
             .padding(.horizontal)

@@ -5,47 +5,47 @@
         "desc": "The Apple Developer Academy @ BINUS is Asia's first-ever initiative to empower Indonesia's economy by creating world-class developers for the world's most innovative and vibrant app ecosystem.",
         "sysImage": "graduationcap.fill",
         "coordinates": {
-            "latitude": -6.3018849,
-            "longitude": 106.6500193
+            "latitude": -6.3020963,
+            "longitude": 106.6521549
         },
         "building": "GOP 9",
-        "imageNames": ["image1", "image2", "image3"]
+        "imageNames": ["ada1", "ada2", "ada3"]
     },
     {
         "id": 2,
-        "name": "Bis",
-        "desc": "",
+        "name": "Halte BSD Link The Breeze",
+        "desc": "Bis BSD LINK (The Breeze) adalah jalur melingkar dengan 21 pemberhentian berangkat dari The Breeze. BSD LINK bis mulai beroperasi di jam 09:00 dan berhenti beroperasi di jam 20:30",
         "sysImage": "bus.fill",
         "coordinates": {
-            "latitude": -6.3023062,
-            "longitude": 106.6522011
+            "latitude": -6.3013748,
+            "longitude": 106.6531418
         },
-        "building": "SML",
-        "imageNames": ["image1", "image2", "image3"]
+        "building": "The Breeze",
+        "imageNames": ["halte1", "halte2", "halte3"]
     },
     {
         "id": 3,
-        "name": "Fami",
-        "desc": "",
+        "name": "Family Mart",
+        "desc": "FamilyMart is one of the biggest convenience stores. Started the first store in 1973 in Japan, FamilyMart now has more than 23.000 stores in many countries. In Indonesia, FamilyMart started the business under PT Fajar Mitra Indah in 2012.",
+        "sysImage": "fork.knife",
+        "coordinates": {
+            "latitude": -6.3018849,
+            "longitude": 106.6500193
+        },
+        "building": "GOP 1",
+        "imageNames": ["fami1", "fami2", "fami3"]
+    },
+    {
+        "id": 4,
+        "name": "Lawson",
+        "desc": "Lawson adalah convenience store yang menjual makanan dan minuman siap saji, serta menyediakan tempat yang nyaman untuk makan dan minum. Lawson resmi memasuki pasar ritel di Indonesia dengan menggandeng PT Midi Utama Indonesia Tbk pada 31 Juli 2011. Pada 12 Maret 2018, Lawson Indonesia resmi berdiri sebagai badan usaha dengan nama PT Lancar Wiguna Sejahtera.",
         "sysImage": "fork.knife",
         "coordinates": {
             "latitude": -6.3032293,
             "longitude": 106.6531313
         },
-        "building": "GOP 1",
-        "imageNames": ["image1", "image2", "image3"]
-    },
-    {
-        "id": 4,
-        "name": "Law",
-        "desc": "",
-        "sysImage": "fork.knife",
-        "coordinates": {
-            "latitude": -6.3007555,
-            "longitude": 106.6499860
-        },
         "building": "GOP 6",
-        "imageNames": ["image1", "image2", "image3"]
+        "imageNames": ["lawson1", "lawson2", "lawson3"]
     },
     {
         "id": 5,

@@ -30,7 +30,7 @@ struct ContentView: View {
                         .matchedGeometryEffect(id: "screenContainer", in: animation)
                         
                 case .navigation(let startingPoint):
-                    MyNavigationView(startingPoint: startingPoint)
+                    NavigationScreen(appState: appState, startingPoint: startingPoint)
                         .transition(
                             .asymmetric(
                                 insertion: .move(edge: .trailing).combined(with: .opacity),
