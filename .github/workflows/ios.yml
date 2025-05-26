@@ -8,27 +8,37 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-15  # Use the latest macOS runner
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '15.2'
+    - name: List available Xcode versions
+      run: |
+        echo "Available Xcode versions:"
+        ls /Applications/ | grep Xcode
+        echo "Currently selected Xcode:"
+        xcode-select -p
     
+    - name: Use latest available Xcode
+      run: |
+        # Find the latest Xcode version
+        LATEST_XCODE=$(ls /Applications/ | grep "Xcode_" | sort -V | tail -1)
+        echo "Using: $LATEST_XCODE"
+        sudo xcode-select -s /Applications/$LATEST_XCODE/Contents/Developer
+        
     - name: Show Xcode version
       run: xcodebuild -version
     
     - name: List schemes
       run: |
         echo "Listing available schemes..."
-        xcodebuild -list -json
+        xcodebuild -list -project Navigasi.xcodeproj
     
     - name: Build
       run: |
         xcodebuild clean build \
           -project Navigasi.xcodeproj \
           -scheme Navigasi \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2'
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.0' \
+          -configuration Debug
